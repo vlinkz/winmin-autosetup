@@ -1,0 +1,12 @@
+Source: winmin-autosetup
+Maintainer: Victor Fuentes <hyruleterminatriforce@gmail.com>
+
+Package: winmin-autosetup
+Version: 0.1-1
+Section: base
+Priority: optional
+Architecture: any
+Depends:  libc6 (>= 2.17), libpython3.8 (>= 3.7.3-1), winmin-viewer (>= 0.1-1), python3 (>= 3.7.3-1), python3-magic, python3-clint, python3-requests, samba, wimtools
+Maintainer: Victor Fuentes <hyruleterminatriforce@gmail.com>
+Description: Winmin autosetup script
+

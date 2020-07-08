@@ -1,0 +1,5 @@
+autounattend.xml usr/share/winmin-autosetup
+setup.ps1 usr/share/winmin-autosetup
+redhat1.cer usr/share/winmin-autosetup
+redhat2.cer usr/share/winmin-autosetup
+smb.conf usr/share/winmin-autosetup

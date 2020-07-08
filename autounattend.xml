@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+    
+    <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <SetupUILanguage>
+            <UILanguage>{{LANG}}</UILanguage>
+         </SetupUILanguage>
+         <InputLocale>{{LANG}}</InputLocale>
+         <SystemLocale>{{LANG}}</SystemLocale>
+         <UILanguage>{{LANG}}</UILanguage>
+         <UILanguageFallback>{{LANG}}</UILanguageFallback>
+         <UserLocale>{{LANG}}</UserLocale>
+      </component>
+    
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <UserData>
+            <AcceptEula>true</AcceptEula>
+            <FullName>VM</FullName>
+            <Organization />
+            <ProductKey>
+               <Key>{{PRODKEY}}</Key>
+               <WillShowUI>Never</WillShowUI>
+            </ProductKey>
+         </UserData>
+         
+        <DiskConfiguration>
+          <Disk wcm:action="add">
+            <DiskID>0</DiskID> 
+            <WillWipeDisk>true</WillWipeDisk>
+            <CreatePartitions>
+              <!-- System partition -->
+              <CreatePartition wcm:action="add">
+                <Order>1</Order> 
+                <Type>Primary</Type> 
+                <Size>300</Size> 
+              </CreatePartition>
+              <!-- Windows partition -->
+              <CreatePartition wcm:action="add">
+                <Order>2</Order> 
+                <Type>Primary</Type> 
+                <Extend>true</Extend> 
+              </CreatePartition>
+            </CreatePartitions>
+            <ModifyPartitions>
+              <!-- System partition -->
+              <ModifyPartition wcm:action="add">
+                <Order>1</Order> 
+                <PartitionID>1</PartitionID> 
+                <Label>System</Label>
+                <Format>NTFS</Format> 
+                <Active>true</Active> 
+              </ModifyPartition>
+              <!-- Windows partition -->
+              <ModifyPartition wcm:action="add">
+                <Order>2</Order> 
+                <PartitionID>2</PartitionID> 
+                <Label>Windows</Label> 
+                <Letter>C</Letter> 
+                <Format>NTFS</Format> 
+              </ModifyPartition>
+            </ModifyPartitions>
+          </Disk>
+          <WillShowUI>OnError</WillShowUI> 
+        </DiskConfiguration>
+         
+        <ImageInstall>
+				<OSImage>
+					<WillShowUI>OnError</WillShowUI>
+					<InstallTo>
+						<DiskID>0</DiskID>
+						<PartitionID>2</PartitionID>
+					</InstallTo>
+				</OSImage>
+			</ImageInstall>
+      </component>   
+           
+      <component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         <DriverPaths>
+            <PathAndCredentials wcm:keyValue="1" wcm:action="add">
+               <Path>E:\amd64\w10</Path> 
+            </PathAndCredentials>
+         </DriverPaths>
+      </component>
+        
+    </settings>
+    
+   <settings pass="offlineServicing">
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <EnableLUA>false</EnableLUA>
+      </component>
+      
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <InputLocale>{{LANG}}</InputLocale>
+         <SystemLocale>{{LANG}}</SystemLocale>
+         <UILanguage>{{LANG}}</UILanguage>
+         <UILanguageFallback>{{LANG}}</UILanguageFallback>
+         <UserLocale>{{LANG}}</UserLocale>
+      </component>
+   </settings>
+ 
+   <settings pass="generalize">
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Security-SPP" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <SkipRearm>1</SkipRearm>
+      </component>
+   </settings>
+
+   <settings pass="specialize">
+
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <InputLocale>{{LANG}}</InputLocale>
+         <SystemLocale>{{LANG}}</SystemLocale>
+         <UILanguage>{{LANG}}</UILanguage>
+         <UILanguageFallback>{{LANG}}</UILanguageFallback>
+         <UserLocale>{{LANG}}</UserLocale>
+      </component>
+
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Security-SPP-UX" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <SkipAutoActivation>true</SkipAutoActivation>
+      </component>
+      
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <CEIPEnabled>0</CEIPEnabled>
+      </component>
+      
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <ComputerName>WinminGuest</ComputerName>
+         <ProductKey>{{PRODKEY}}</ProductKey>
+      </component>
+      
+   </settings>
+ 
+    
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <OOBE>
+            <HideEULAPage>true</HideEULAPage>
+            <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+            <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+            <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+            <NetworkLocation>Home</NetworkLocation>
+            <SkipUserOOBE>true</SkipUserOOBE>
+            <SkipMachineOOBE>true</SkipMachineOOBE>
+            <ProtectYourPC>3</ProtectYourPC>
+            </OOBE>
+            <UserAccounts>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Name>vm</Name>
+                        <Group>Administrators</Group>
+                        <Password>
+                            <Value>vm</Value>
+                            <PlainText>true</PlainText>
+                        </Password>
+                        <DisplayName>VM</DisplayName>
+                        <Description>vm</Description>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+            <AutoLogon>
+                <Password>
+                <Value>vm</Value>
+                <PlainText>true</PlainText>
+                </Password>
+                <Enabled>true</Enabled>
+                <LogonCount>9999999</LogonCount>
+                <Username>vm</Username>
+            </AutoLogon>
+            <RegisteredOwner>VM</RegisteredOwner>
+            
+            <FirstLogonCommands>
+               <SynchronousCommand wcm:action="add">
+                  <Description>Control Panel View</Description>
+                  <Order>1</Order>
+                  <CommandLine>reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" /v StartupPage /t REG_DWORD /d 1 /f</CommandLine>
+                  <RequiresUserInput>true</RequiresUserInput>
+               </SynchronousCommand>
+               <SynchronousCommand wcm:action="add">
+                  <Order>2</Order>
+                  <Description>Control Panel Icon Size</Description>
+                  <RequiresUserInput>false</RequiresUserInput>
+                  <CommandLine>reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" /v AllItemsIconView /t REG_DWORD /d 0 /f</CommandLine>
+               </SynchronousCommand>
+               <SynchronousCommand wcm:action="add">
+                  <Order>3</Order>
+                  <RequiresUserInput>false</RequiresUserInput>
+                  <CommandLine>cmd /C wmic useraccount where name="VM" set PasswordExpires=false</CommandLine>
+                  <Description>Password Never Expires</Description>
+            </SynchronousCommand>
+            <SynchronousCommand wcm:action="add">
+                  <Order>4</Order>
+                  <RequiresUserInput>false</RequiresUserInput>
+                  <CommandLine>cmd /C powershell "Set-ExecutionPolicy Unrestricted"</CommandLine>
+                  <Description>Allow running powershell scripts</Description>
+            </SynchronousCommand>
+            <SynchronousCommand wcm:action="add">
+                  <Order>5</Order>
+                  <RequiresUserInput>false</RequiresUserInput>
+                  <CommandLine>cmd /C powershell "D:\setup.ps1"</CommandLine>
+                  <Description>Run winmin setup script</Description>
+            </SynchronousCommand>
+         </FirstLogonCommands>
+            <TimeZone>Eastern Standard Time</TimeZone>
+        </component>
+    </settings>
+</unattend>
